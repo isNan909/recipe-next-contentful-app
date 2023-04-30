@@ -1,14 +1,41 @@
 import { client, previewClient } from "@/lib/contentful";
 import { useRouter } from "next/router";
+import ContentfulImage from "@/components/Contentfulimage";
+import RichText from "@/components/RichText";
 
 const Recipe = ({ recipe, preview }) => {
   const router = useRouter();
-  // console.log(recipe);
+  const { banner, title, procedure, recipeBy } = recipe.fields;
 
   return (
     <>
       {preview && <>Preview alert!</>}
-      <article>{router.isFallback ? <>loading..</> : <>post detail</>}</article>
+      <article>
+        {router.isFallback ? (
+          <>loading..</>
+        ) : (
+          <>
+            <ContentfulImage
+              alt={title}
+              src={banner.fields.file.url}
+              width={banner.fields.file.details.image.width}
+              height={banner.fields.file.details.image.height}
+            />
+            <div>
+              {/* person image */}
+              Recipe by:
+              <ContentfulImage
+                alt={recipeBy.fields.image.fields.title}
+                src={recipeBy.fields.image.fields.file.url}
+                width={recipeBy.fields.image.fields.file.details.image.width}
+                height={recipeBy.fields.image.fields.file.details.image.height}
+              />
+              <span>{recipeBy.fields.image.fields.title}</span>
+            </div>
+            <RichText content={procedure} />
+          </>
+        )}
+      </article>
     </>
   );
 };

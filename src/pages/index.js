@@ -1,6 +1,5 @@
 import { client } from "@/lib/contentful";
 import Head from "next/head";
-
 import Recipecard from "@/components/Card";
 
 import styles from "@/styles/Home.module.css";

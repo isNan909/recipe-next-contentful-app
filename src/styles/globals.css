@@ -9,6 +9,8 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Roboto;
+  height: 100dvh;
+  background-color: #fffdf5;
 }
 
 a {

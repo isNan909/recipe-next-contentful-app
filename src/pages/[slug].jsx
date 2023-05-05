@@ -1,15 +1,14 @@
-import { client, previewClient } from "@/lib/contentful";
+import { client } from "@/lib/contentful";
 import { useRouter } from "next/router";
 import ContentfulImage from "@/components/Contentfulimage";
 import RichText from "@/components/RichText";
 
-const Recipe = ({ recipe, preview }) => {
+const Recipe = ({ recipe }) => {
   const router = useRouter();
   const { banner, title, procedure, recipeBy } = recipe.fields;
 
   return (
     <>
-      {preview && <>Preview alert!</>}
       <article>
         {router.isFallback ? (
           <>loading..</>
@@ -40,11 +39,9 @@ const Recipe = ({ recipe, preview }) => {
   );
 };
 
-export const getStaticProps = async ({ params, preview = false }) => {
-  const cfClient = preview ? previewClient : client;
-
+export const getStaticProps = async ({ params }) => {
   const { slug } = params;
-  const response = await cfClient.getEntries({
+  const response = await client.getEntries({
     content_type: "recipeCookbook",
     "fields.slug": slug,
   });
@@ -61,7 +58,6 @@ export const getStaticProps = async ({ params, preview = false }) => {
   return {
     props: {
       recipe: response?.items?.[0],
-      preview,
       revalidate: 60,
     },
   };

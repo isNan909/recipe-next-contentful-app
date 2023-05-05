@@ -8,7 +8,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Roboto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Roboto;
   height: 100dvh;
   background-color: #fffdf5;
 }
@@ -29,6 +29,12 @@ a {
   margin: auto;
 }
 
-ul, li {
-  list-style: none;
+p {
+  padding: 5px 0px;
+}
+
+blockquote {
+  border-left: 3px solid #656556;
+  background: #dedede;
+  padding: 5px;
 }

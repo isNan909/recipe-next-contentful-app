@@ -14,3 +14,7 @@
 	text-align: center;
 	padding: 20px 0px;
 }
+
+.navbarWrapper ul li{
+	list-style: none;
+}

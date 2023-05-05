@@ -1,0 +1,28 @@
+.recipeby {
+	display: flex;
+	flex-direction: column;
+	padding: 20px 0px;
+}
+
+.details{
+	max-width: 1200px;
+	margin: auto;
+}
+
+.recipeperson {
+	display: flex;
+	margin-top: 10px;
+	align-items: center;
+}
+
+.recipeperson > img {
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+}
+
+.bannerImage{
+	width: 100%;
+	object-fit: cover;
+}

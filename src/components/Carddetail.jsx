@@ -1,5 +1,5 @@
-const Carddetail = () => {
-  return <>detail of the card</>;
+const Carddetail = ({ children }) => {
+  return <>{ children }</>;
 };
 
 export default Carddetail;

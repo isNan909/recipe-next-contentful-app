@@ -47,6 +47,7 @@ const Recipe = ({ recipe, preview }) => {
                 <span>{recipeBy.fields.image.fields.title}</span>
               </div>
               </div>
+              <h1>{title}</h1>
               <span>Time to cook: {timeToCook}</span>
             <RichText content={procedure} />
           </Carddetail>
@@ -57,10 +58,10 @@ const Recipe = ({ recipe, preview }) => {
 };
 
 export const getStaticProps = async ({ params, preview = false }) => {
-  const isPreview = preview ? previewClient : client;
+  const currentClient = preview ? previewClient : client
 
   const { slug } = params;
-  const response = await client.getEntries({
+  const response = await currentClient.getEntries({
     content_type: "recipeCookbook",
     "fields.slug": slug,
   });

@@ -1,18 +1,26 @@
-import { client } from "@/lib/contentful";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { client, previewClient } from "@/lib/contentful";
+
 import ContentfulImage from "@/components/Contentfulimage";
 import Carddetail from "@/components/Carddetail";
 import RichText from "@/components/RichText";
 
 import styles from "@/styles/Carddetail.module.css";
 
-const Recipe = ({ recipe }) => {
+const Recipe = ({ recipe, preview }) => {
   const router = useRouter();
-  const { banner, title, procedure, recipeBy } = recipe.fields;
+  const { banner, title, procedure, recipeBy, timeToCook } = recipe.fields;
 
   return (
     <>
       <article className={styles.details}>
+        {preview && (
+          <>
+            You are previewing content:
+            <Link href="/api/exit-preview">Exit preview</Link>
+          </>
+        )}
         {router.isFallback ? (
           <>loading..</>
         ) : (
@@ -38,7 +46,8 @@ const Recipe = ({ recipe }) => {
                 />
                 <span>{recipeBy.fields.image.fields.title}</span>
               </div>
-            </div>
+              </div>
+              <span>Time to cook: {timeToCook}</span>
             <RichText content={procedure} />
           </Carddetail>
         )}
@@ -47,7 +56,9 @@ const Recipe = ({ recipe }) => {
   );
 };
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params, preview = false }) => {
+  const isPreview = preview ? previewClient : client;
+
   const { slug } = params;
   const response = await client.getEntries({
     content_type: "recipeCookbook",
@@ -67,6 +78,7 @@ export const getStaticProps = async ({ params }) => {
     props: {
       recipe: response?.items?.[0],
       revalidate: 60,
+      preview,
     },
   };
 };
